@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>raste adolan</title>
+  
+
+
+<style>body { background: #222; }
+#video_player { 
+  display: table; line-height: 0;
+  font-size: 0; background: #000;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#video_container { 
+  position: relative;
+}
+#video_player div, #video_player figcaption { 
+  display: table-cell;
+  vertical-align: top; 
+}
+#video_container video { 
+  position: absolute; 
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+#video_player figcaption { width: 25%; }
+#video_player figcaption a { display: block; }
+#video_player figcaption a { 
+  opacity: .5;
+  transition: 1s opacity; 
+}
+#video_player figcaption a img, figure video { 
+  width: 100%; height: auto; 
+}
+#video_player figcaption a.currentvid, #video_player figcaption a:hover, #video_player figcaption a:focus { opacity: 1; }
+@media (max-width: 700px) {
+  #video_player video, #video_player figcaption { 
+    display: table-row; 
+  }
+#video_container { padding-top: 56.25%; }
+#video_player figcaption a { 
+  display: inline-block; width: 33.33%; 
+}
+}
+</style>
+
+
+
+
+<script type="text/javascript">
+  var video_player = document.getElementById("video_player");
+video = video_player.getElementsByTagName("video")[0],
+video_links = video_player.getElementsByTagName("figcaption")[0],
+source = video.getElementsByTagName("source"),
+link_list = [],
+vidDir = "http://thenewcode.com/assets/videos/",
+currentVid = 0,
+allLnks = video_links.children,
+lnkNum = allLnks.length;
+video.removeAttribute("controls");
+video.removeAttribute("poster");
+
+video.addEventListener('click', () => { video.play(); })
+
+(function() {
+function playVid(index) {
+ video_links.children[index].classList.add("currentvid");
+    source[1].src = vidDir + link_list[index] + ".webm";  
+  source[0].src = vidDir + link_list[index] + ".mp4";
+    currentVid = index;
+    video.load();
+  video.play();
+}
+
+for (var i=0; i<lnkNum; i++) {
+var filename = allLnks[i].href;
+link_list[i] = filename.match(/([^\/]+)(?=\.\w+$)/)[0];
+(function(index){
+        allLnks[i].onclick = function(i){
+        i.preventDefault();  
+    for (var i=0; i<lnkNum; i++) {
+    allLnks[i].classList.remove("currentvid");
+    }
+    playVid(index);
+        }    
+    })(i);
+}
+video.addEventListener('ended', function () {
+    allLnks[currentVid].classList.remove("currentvid");
+    if ((currentVid + 1) >= lnkNum) { nextVid = 0 } else { nextVid = currentVid+1 }
+    playVid(nextVid);
+})
+
+video.addEventListener('mouseenter', function() {
+    video.setAttribute("controls","true");
+})
+
+video.addEventListener('mouseleave', function() {
+    video.removeAttribute("controls");
+})
+
+var indexOf = function(needle) {
+    if(typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
+      for(i = 0; i < this.length; i++) {
+                if(this[i] === needle) {
+                    index = i;
+                    break;
+                }}
+            return index;
+        };}
+    return indexOf.call(this, needle);
+};
+  var focusedLink = document.activeElement;
+  index = indexOf.call(allLnks, focusedLink);
+  
+document.addEventListener('keydown', function(e) {
+if (index) {
+  var focusedElement = document.activeElement;
+    if (e.keyCode == 40 || e.keyCode == 39) { // down or right cursor
+    var nextNode = focusedElement.nextElementSibling;
+    if (nextNode) { nextNode.focus(); } else { video_links.firstElementChild.focus(); }
+    }
+   if (e.keyCode == 38 || e.keyCode == 37) { // up or left cursor
+    var previousNode = focusedElement.previousElementSibling;
+    if (previousNode) { previousNode.focus(); } else { video_links.lastElementChild.focus(); }
+    }
+ }
+});
+
+})();  
+
+</script>
+</head>
+<figure id="video_player">
+  <div id="video_container">
+  <video controls poster="D:\websites\HighTechIT-1.0.0\HighTechIT-1.0.0\img\carousel-1.jpg" playsinline>
+    <source src="D:\websites\HighTechIT-1.0.0\HighTechIT-1.0.0\video\Snapinsta.app_video_81486653782A51A801A98DACB86388B0_video_dashinit.mp4" type="video/mp4">
+
+    <source src="http://thenewcode.com/assets/videos/glacier.webm" type="video/webm">
+</video>
+</div>
+<figcaption>
+  <a href="http://thenewcode.com/assets/videos/glacier.mp4" class="currentvid">
+    <img src="http://thenewcode.com/assets/images/vid-glacier.jpg" alt="Athabasca Glacier">
+  </a>
+  <a href="http://thenewcode.com/assets/videos/lake.mp4">
+    <img src="http://thenewcode.com/assets/images/vid-lake.jpg" alt="Athabasca Lake">
+  </a>
+  <a href="http://thenewcode.com/assets/videos/mountain.mp4">
+    <img src="http://thenewcode.com/assets/images/vid-mountain.jpg" alt="Mountain">
+  </a>
+</figcaption>
+</figure>
+<h2 style="color:white;"><center>प्रशांतजी गिड्डे यांच्या वाढदिवसनिमित्त .. </center></h2>
+
+<p style="color:white;">सोलापूर जिल्ह्यात ग्रामीण भागातील रस्त्यांची दुरावस्था झाली असून संबधित बांधकाम विभाग आणि आमदारांच्या कामावर नागरिकांतून तीव्र संताप व्यक्त करण्यात येत आहे. जिल्ह्यातील ग्रामीण भागात गावा-गावाना जोडणाऱ्या रस्त्यांवर मोठ-मोठे खड्डे पडल्याने शेतकरी,शेतमजूर,विद्यार्थी,ग्रामस्थ यांना खड्डेमय रस्त्यांचा प्रचंड प्रमाणात त्रास सहन करावा लागत आहे. नागरिकांनी प्रशासनाकडे वारंवार रस्त्यांच्या दुरुस्तीची मागणी करूनही रस्ता दुरुस्त होत नसल्याने जिल्ह्यातील अनेक ठिकाणी ग्रामस्थ,राजकीय पक्ष,सामाजिक संघटना यांनी आवाज उठवून ठिकठिकाणी आंदोलने ही केली आहेत. पण प्रशासनाला लोकांच्या जीवनाचे गांभीर्य नसल्याची खंत सर्वसामान्य नागरिकातून व्यक्त केली जात आहे.
+</p>
+
+
+
+<p style="color:white;">
+रस्त्याच्या दुरावस्थेमुळे एसटी वाहतूक बंद रस्त्याच्या दुरावस्थेमुळे या रस्त्यावरून वाहणारी एसटी वाहतूक ही बंद असल्याचे ग्रामस्थ सांगतात. गावात सरकारी दवाखाना असताना रस्त्यावरून येत असताना वैद्यकीय अधिकाऱ्यांना त्रास सहन करावा लागत असल्याने तेही गावात येण्याचे टाळत आहेत. रस्त्यावरील खड्ड्यांमुळे शेतकऱ्यांचे हाल होत असून दुधाचे नुकसान होवू लागले आहे. रस्ता खराब असल्याने व्यापारी शेतातील माल खरेदी करण्यासाठी येईना गेले आहेत. रस्त्याची दुरावस्था असल्याने सर्वच दळणवळण ठप्प असल्याचे ग्रामस्थ सांगत आहेत.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+
+</body>
+</html>

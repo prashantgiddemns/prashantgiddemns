@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>raste adolan</title>
+  
+
+
+<style>
+ img {
+  border: 10px solid #5FE086 
+;
+}
+
+
+
+
+
+
+
+
+
+
+/*HEADRE*/
+* {box-sizing: border-box;}
+
+body { 
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/*HEADER CLOSE*/
+
+
+
+
+
+
+  body { background: #222; }
+#video_player { 
+
+  border: 5px solid #0EFF27;
+
+
+  display: table; line-height: 0;
+  font-size: 0; background: #000;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#video_container { 
+  position: relative;
+}
+#video_player div, #video_player figcaption { 
+  display: table-cell;
+  vertical-align: top; 
+}
+#video_container video { 
+  position: absolute; 
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+#video_player figcaption { width: 25%; }
+#video_player figcaption a { display: block; }
+#video_player figcaption a { 
+  opacity: .5;
+  transition: 1s opacity; 
+}
+#video_player figcaption a img, figure video { 
+  width: 100%; height: auto; 
+}
+#video_player figcaption a.currentvid, #video_player figcaption a:hover, #video_player figcaption a:focus { opacity: 1; }
+@media (max-width: 700px) {
+  #video_player video, #video_player figcaption { 
+    display: table-row; 
+  }
+#video_container { padding-top: 56.25%; }
+#video_player figcaption a { 
+  display: inline-block; width: 33.33%; 
+}
+}
+
+
+
+/*images css start */
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+/*  */images css end
+}
+
+/* The grid: Four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;images css end
+}
+/*images css end*/
+</style>
+
+
+
+
+<script type="text/javascript">
+  var video_player = document.getElementById("video_player");
+video = video_player.getElementsByTagName("video")[0],
+video_links = video_player.getElementsByTagName("figcaption")[0],
+source = video.getElementsByTagName("source"),
+link_list = [],
+vidDir = "http://thenewcode.com/assets/videos/",
+currentVid = 0,
+allLnks = video_links.children,
+lnkNum = allLnks.length;
+video.removeAttribute("controls");
+video.removeAttribute("poster");
+
+video.addEventListener('click', () => { video.play(); })
+
+(function() {
+function playVid(index) {
+ video_links.children[index].classList.add("currentvid");
+    source[1].src = vidDir + link_list[index] + ".webm";  
+  source[0].src = vidDir + link_list[index] + ".mp4";
+    currentVid = index;
+    video.load();
+  video.play();
+}
+
+for (var i=0; i<lnkNum; i++) {
+var filename = allLnks[i].href;
+link_list[i] = filename.match(/([^\/]+)(?=\.\w+$)/)[0];
+(function(index){
+        allLnks[i].onclick = function(i){
+        i.preventDefault();  
+    for (var i=0; i<lnkNum; i++) {
+    allLnks[i].classList.remove("currentvid");
+    }
+    playVid(index);
+        }    
+    })(i);
+}
+video.addEventListener('ended', function () {
+    allLnks[currentVid].classList.remove("currentvid");
+    if ((currentVid + 1) >= lnkNum) { nextVid = 0 } else { nextVid = currentVid+1 }
+    playVid(nextVid);
+})
+
+video.addEventListener('mouseenter', function() {
+    video.setAttribute("controls","true");
+})
+
+video.addEventListener('mouseleave', function() {
+    video.removeAttribute("controls");
+})
+
+var indexOf = function(needle) {
+    if(typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
+      for(i = 0; i < this.length; i++) {
+                if(this[i] === needle) {
+                    index = i;
+                    break;
+                }}
+            return index;
+        };}
+    return indexOf.call(this, needle);
+};
+  var focusedLink = document.activeElement;
+  index = indexOf.call(allLnks, focusedLink);
+  
+document.addEventListener('keydown', function(e) {
+if (index) {
+  var focusedElement = document.activeElement;
+    if (e.keyCode == 40 || e.keyCode == 39) { // down or right cursor
+    var nextNode = focusedElement.nextElementSibling;
+    if (nextNode) { nextNode.focus(); } else { video_links.firstElementChild.focus(); }
+    }
+   if (e.keyCode == 38 || e.keyCode == 37) { // up or left cursor
+    var previousNode = focusedElement.previousElementSibling;
+    if (previousNode) { previousNode.focus(); } else { video_links.lastElementChild.focus(); }
+    }
+ }
+});
+
+})();  
+
+
+ // images javascript start 
+
+
+
+
+ function myFunction(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+}
+
+
+// images css 
+
+function myFunction(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+}
+// end
+
+
+</script>
+<div class="header">
+  <a href="#default" class="logo"style="background-color:blue;">रस्ते  आंदोलन </a>
+  <div class="header-right"> 
+    <!-- <a class="active" href="file:///D:/websites/HighTechIT-1.0.0/HighTechIT-1.0.0/index.html">.     होम पेज </a> -->
+
+    <a href="D:\websites\maharshtra navnirman sena\mns\index.html" class="me-2">
+      <button type="button" class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft="style="background-color:green;";style="text-color:brown";>होम पेजवर जा  </button>
+    
+  </div>
+</head>
+
+
+
+
+
+<h3 style="color:blue">खड्डेविरहित रस्त्यांसाठीचा संघर्ष.. </h3>
+<h5>महाराष्ट्र नवनिर्माण सेनेच्या १९ मार्च २००६ च्या पहिल्याच जाहीर सभेत मनसे अध्यक्ष श्री. राज ठाकरे ह्यांनी भ्रष्ट कंत्राटदारांच्या निकृष्ट दर्जाच्या रस्ते कामांवर नाराजी व्यक्त केली होती. ज्या कंत्राटदारांना हजारो कोटींची कंत्राटं देऊन शहरांत-राज्यात रस्ते बांधले जातात त्याच रस्त्यांवर काही महिन्यांत खड्डे कसे पडतात? आणि त्यावर कहर म्हणजे तात्काळ खड्डे बुजवायची पुन्हा कोट्यवधींची कंत्राटं काढली जातात. ही सर्व भ्रष्ट व्यवस्था उध्वस्त करणं गरजेचं होतं किंबहुना आहे. पक्षस्थापनेनंतर काही कालावधीतच खड्डेविरहित रस्त्यांसाठी विविध शहरांमध्ये महाराष्ट्र सैनिकांनी आंदोलनं सुरु केली. कंत्राटदारांना, प्रशासकीय अधिकाऱ्यांना जाब विचारण्यात आला. आक्रमक आणि कल्पक आंदोलनांनी महाराष्ट्र नवनिर्माण सेनेनं ह्या संपूर्ण भ्रष्ट व्यवस्थेला जेरीस आणलं. स्वतः राजसाहेबांनी अनेक नामांकित कंपन्यांच्या अधिकाऱ्यांशी ह्या कंत्राटी पद्धतीबद्दल, निकषांबद्दल चर्चा केली तेव्हा एक धक्कादायक वास्तव समोर आलं होतं. महाराष्ट्रात काही कंत्राटदारांचं आणि भ्रष्ट व्यवस्थेतील काही घटकांचं साटंलोटं आहे. त्यामुळे कंत्राटांचे निकष बनवतानाच असे बनवले जातात की, ह्या भ्रष्ट कंत्राटदारांना रस्त्यांची कामं मिळतील आणि जागतिक कंपन्या किंवा उत्तम दर्जाची कामं करणाऱ्या कंपन्या स्पर्धेबाहेर ढकलल्या जातील.</h5>
+<br>
+
+
+
+
+
+
+
+
+<body style="background-color:white;">
+
+
+
+<!-- The four columns -->
+<div class="row">
+  <div class="column">
+    <img src="img\rasteimg1 (2).jpg" alt="Nature" style="width:100%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="img\rasteimg1 (1).jpg" alt="Snow" style="width:100%" onclick="myFunction(this);">
+  </div>
+   <div class="column">
+    <img src="img\mns1.jpeg" alt="Mountains" style="width:100%" onclick="myFunction(this);">
+  </div> 
+  <div class="column">
+    <img src="img\rasteimg1 (3).jpg" alt="Lights" style="width:100%" onclick="myFunction(this);">
+  </div>
+</div>
+
+<div class="container">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <img id="expandedImg" style="width:100%">
+  <div id="imgtext"></div>
+</div>
+
+<h4>कुर्डुवाडी ते पंढरपूर  रसत्याबाबत.. </h4>
+<p style="color:green;"><bold> कुर्डुवाडी ते पंढरपूर
+पंढरपूर ते म्हसवड या अर्ध्या रस्त्याच्या कामाबाबत व रस्त्याच्या कडेला बांभळीच्या झाडांची वाढलेली संख्या याबाबत महाराष्ट्र नवनिर्माण सेनेने दि. कार्यकारी अभियंता MSRDC पुणे येथे जाऊन डी पोतदार मॅडम यांची भेट घेऊन निवेदन दिले व ही अपूर्ण कामे लवकरात लवकर पूर्ण करा अन्यथा महाराष्ट्र निरुमार सेना तीव्र आंदोलन छेडणार आहे. प्रशांतजी गिड्डे यांनी यावेळी पोतदार मॅडम यांनी ताबातोडचा वेग वाढवून कामे पूर्ण करून आंदोलन करण्याची वेळ येऊ देणार नाही असा इशारा दिला.
+काही तांत्रिक अडचणींमुळे कालव्याचे काम आणि बावी येथील काम रखडले असून, कागदपत्रे पूर्ण करून पोलीस प्रशासनाला घेरण्याचे आश्वासन देण्यात आले.
+</bold></p>
+<!-- close -->
+
+
+
+<!-- The four columns -->
+<div class="row">
+  <div class="column">
+    <img src="img\rasteandolan44.jpg"  style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img\rasteandolan4.jpg" alt="Snow" style="width:100%" onclick="myFunction(this);">
+  </div>
+   <div class="column">
+    <img src="img\rasteandolan3.jpg" alt="Mountains" style="width:100%" onclick="myFunction(this);">
+  </div> 
+  <div class="column">
+    <img src="img\rasteandolan111.jpg" alt="Lights" style="width:100%" onclick="myFunction(this);">
+  </div>
+</div>
+
+<div class="container">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <img id="expandedImg" style="width:100%">
+  <div id="imgtext"></div>
+</div>
+
+<h4>कुर्डुवाडी ते पंढरपूर  रसत्याबाबत.. </h4>
+<p style="color:green;"><bold> =कुर्डुवाडी ते पंढरपूर
+पंढरपूर ते म्हसवड या अर्ध्या रस्त्याच्या कामाबाबत व रस्त्याच्या कडेला बांभळीच्या झाडांची वाढलेली संख्या याबाबत महाराष्ट्र नवनिर्माण सेनेने दि. कार्यकारी अभियंता MSRDC पुणे येथे जाऊन डी पोतदार मॅडम यांची भेट घेऊन निवेदन दिले व ही अपूर्ण कामे लवकरात लवकर पूर्ण करा अन्यथा महाराष्ट्र निरुमार सेना तीव्र आंदोलन छेडणार आहे. प्रशांतजी गिड्डे यांनी यावेळी पोतदार मॅडम यांनी ताबातोडचा वेग वाढवून कामे पूर्ण करून आंदोलन करण्याची वेळ येऊ देणार नाही असा इशारा दिला.
+काही तांत्रिक अडचणींमुळे कालव्याचे काम आणि बावी येथील काम रखडले असून, कागदपत्रे पूर्ण करून पोलीस प्रशासनाला घेरण्याचे आश्वासन देण्यात आले.
+</bold></p>
+<!-- close -->
+
+
+
+
+
+
+<figure id="video_player">
+  <div id="video_container">
+  <video controls poster="img\shetianolan1.jpg"playsinline>
+    <source src="video\319220798_810398586734501_2184340006195473937_n.mp4" type="video/mp4">
+
+    <source src="video\new 222222222 (1).mp4" type="video/webm">
+</video>
+</div>
+<figcaption>
+  <a href="video\319220798_810398586734501_2184340006195473937_n.mp4" class="currentvid">
+    <img src="img\sheti andolan4.jpg" alt="Athabasca Glacier">
+  </a>
+  <a href="video\new 222222222 (3).mp4">
+    <img src="img\shtiandolan3.jpg"alt="Athabasca Lake">
+  </a>
+  <a href="video\new 222222222 (10).mp4">
+    <img src="img\shtiandolan3.jpg" alt="Mountain">
+  </a>
+</figcaption>
+</figure>
+
+
+<figure id="video_player">
+  <div id="video_container">
+  <video controls poster="img\shetiandolan10.jpg"playsinline>
+    <source src="D:\websites\HighTechIT-1.0.0\HighTechIT-1.0.0\video\Snapinsta.app_video_81486653782A51A801A98DACB86388B0_video_dashinit.mp4" type="video/mp4">
+
+    <source src="video\new 222222222 (7).mp4" type="video/webm">
+</video>
+</div>
+<figcaption>
+  <a href="video\new 222222222 (15).mp4" class="currentvid">
+    <img src="img\sheti andolan4.jpg" alt="Athabasca Glacier">
+  </a>
+  <a href="video\319220798_810398586734501_2184340006195473937_n.mp4">
+    <img src="img\shtiandolan3.jpg"alt="Athabasca Lake">
+  </a>
+  <a href="video\394072326_7007744325944980_3222663884018954780_n.mp4">
+    <img src="img\shtiandolan3.jpg" alt="Mountain">
+  </a>
+</figcaption>
+</figure>
+
+
+</body>
+</html>
